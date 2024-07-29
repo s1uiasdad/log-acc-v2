@@ -29,7 +29,7 @@ jobs:
 
       - name: Build to EXE
         run: |
-          pkg scr/join/main.js --compress GZip -t node18-win --out main.exe
+          pkg scr/join/main.js --compress GZip -t node18-win
 
       - name: Delete tag and release
         uses: dev-drprasad/delete-tag-and-release@v1.1
