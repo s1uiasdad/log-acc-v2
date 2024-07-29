@@ -29,7 +29,7 @@ jobs:
 
       - name: Build to EXE
         run: |
-          pkg scr/join/main.js --compress GZip -t node18-win --out dist/main.exe
+          pkg scr/join/main.js --compress GZip -t node18-win --out main.exe
 
       - name: Delete tag and release
         uses: dev-drprasad/delete-tag-and-release@v1.1
@@ -57,6 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/main.exe
+          asset_path: main.exe
           asset_name: main.exe
           asset_content_type: application/octet-stream
