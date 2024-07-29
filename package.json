@@ -1,0 +1,10 @@
+{
+  "name": "MinecraftSpamBot v2",
+  "version": "2.0.0",
+  "description": "MinecraftSpamBot v2",
+  "main": "scr/join/main.js",
+  "dependencies": {
+    "snekfetch": "x",
+    "mineflayer": "x"
+  }
+}
