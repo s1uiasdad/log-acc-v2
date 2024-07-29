@@ -6,7 +6,6 @@ const snekfetch = require("snekfetch");
 const config = require("./config.json");
 let number = 1;
 
-
 function createBot(username) {
     var mineflayer = require('mineflayer');
     var bot = mineflayer.createBot({
