@@ -1,0 +1,17 @@
+{
+    "crackedusernameprefix": "hai1723v2.",
+
+    "ip": "26.237.110.100",
+    "port": 25565,
+    "version": "1.20.4",
+
+    "loginintervalms": 1000,
+
+    "altening": false,
+    "altening_token": "",
+
+    "spammessage": "Spam v1 !\nhttps://guns.lol/hai1723 my discord",
+    "spamintervalms": 1,
+
+    "physics": true
+}
