@@ -4,18 +4,17 @@ on:
   push:
     paths:
       - 'scr/join/main.js'
-  pull_request:
-    paths:
-      - 'scr/join/main.js'
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
-  build:
+  build_and_release:
     runs-on: windows-latest
     permissions:
       contents: write
       pull-requests: write
       repository-projects: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -34,7 +33,7 @@ jobs:
       - name: Build to EXE
         run: pkg scr\join\main.js --compress GZip -t node18-win
 
-      - name: Delete old tag and release
+      - name: Delete-tag-and-release
         uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
           tag_name: AutoBuildExe
@@ -43,17 +42,21 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: AutoBuildExe
           release_name: AutoBuildExe
+          body: Built executable from scr/join/main.js
           draft: false
           prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload main.exe
-        uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: main.exe
