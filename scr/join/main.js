@@ -77,3 +77,5 @@ for (let i = 0; i < 5; i++) {  // Create 5 bots immediately
         createBot(config.crackedusernameprefix + number.toString());
     }
 }
+
+
