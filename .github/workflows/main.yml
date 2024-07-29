@@ -37,7 +37,7 @@ jobs:
       - name: Delete old tag and release
         uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
-          tag_name: AutoBuild
+          tag_name: AutoBuildExe
           delete_release: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
