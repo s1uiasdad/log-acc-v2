@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -29,8 +29,14 @@ jobs:
 
       - name: Build to EXE
         run: |
-          pkg scr/join/main.js --compress GZip -t node18-win
+          pkg scr\join\main.js --compress GZip -t node18-win
 
+      - name: Delete tag and release
+        uses: dev-drprasad/delete-tag-and-release@v1.1
+        with:
+          tag_name: AutoBuildExe
+          delete_release: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         id: create_release
@@ -40,7 +46,7 @@ jobs:
         with:
           tag_name: AutoBuildExe
           release_name: AutoBuildExe
-          body: Log acc free!
+          body: Obfuscated run.cmd file
           draft: false
           prerelease: false
 
